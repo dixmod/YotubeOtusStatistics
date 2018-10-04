@@ -1,7 +1,7 @@
 # YotubeOtusStatistics
 
 # IMPORT Statistics from youtube
-``` ./run statistics:import
+> $ ./run statistics:import
 
 # SHOW Statistics
-``` ./run statistics:show
+> $ ./run statistics:show
