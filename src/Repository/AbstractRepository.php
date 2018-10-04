@@ -19,7 +19,6 @@ abstract class AbstractRepository
     public function __construct()
     {
         $this->client = new Manager();
-        $this->bulk = new BulkWrite;
         $this->db = Config::getOptions('db')['db'];
 
 //        $this->client->selectCollection(
@@ -63,11 +62,22 @@ abstract class AbstractRepository
      */
     public function Save($data)
     {
-
-        //return $this->client->{"otus"}->{$this->getCollection()}->save($data);
-        $this->bulk->update($data, ['$set' => ['id' => $data['id']]]);
-        $this->client->executeBulkWrite($this->db . '.' . $this->collection, $this->bulk);
-
+        $bulk = new BulkWrite;
+        $bulk->update(
+            $data,
+            [
+                '$set' => [
+                    'id' => $data['id']
+                ]
+            ],
+            [
+                'upsert' => true
+            ]
+        );
+        return $this->client->executeBulkWrite(
+            $this->db . '.' . $this->collection,
+            $bulk
+        );
     }
 
 

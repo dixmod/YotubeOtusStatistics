@@ -3,11 +3,7 @@
 namespace Dixmod\Builder;
 
 use Dixmod\DTO\VideoDTO;
-use Dixmod\Services\Channel;
-use Dixmod\Services\RemoteSourceInterface;
-use Dixmod\Services\VideoStatistics;
-use Dixmod\Services\Youtube;
-use Dixmod\Services\Video;
+use Dixmod\Services\{RemoteSourceInterface, VideoStatistics, Youtube, Video};
 
 class VideoBuilder
 {
@@ -28,7 +24,7 @@ class VideoBuilder
     {
         $dto = new VideoDTO();
         if (isset($data['id']['videoId'])) {
-            echo $data['id']['videoId']."\n";
+
             $dto->id = $data['id']['videoId'];
             $dto->title = $data['snippet']['title'] ?? '';
             $dto->channel = $data['channel'];

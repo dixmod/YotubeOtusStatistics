@@ -2,13 +2,14 @@
 
 namespace Dixmod\DTO;
 
+use Dixmod\Services\Channel;
 
 class VideoDTO
 {
     /** @var string */
     public $id;
 
-
+    /** @var Channel */
     public $channel;
 
     /** @var string */

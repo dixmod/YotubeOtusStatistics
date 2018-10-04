@@ -2,10 +2,22 @@
 
 namespace Dixmod\Services;
 
-use Dixmod\DTO\ChannelDTO;
+use Dixmod\DTO\{ChannelDTO, VideoDTO};
+use Dixmod\Repository\ChannelRepository;
+use Dixmod\Repository\RepositoryInterface;
+use Dixmod\Services\Serialize\ModelSerialize;
 
-class Channel extends ChannelDTO
+class Channel extends ModelSerialize
 {
+    /** @var RepositoryInterface */
+    private static $repository;
+
+    /** @var string */
+    public $id;
+
+    /** @var VideoDTO[] */
+    public $items;
+
     /**
      * Channel constructor.
      * @param ChannelDTO $DTO
@@ -22,18 +34,48 @@ class Channel extends ChannelDTO
     }
 
     /**
-     * @return bool
      * @throws \MongoCursorException
      * @throws \MongoCursorTimeoutException
      * @throws \MongoException
      */
-    public function Save(): bool
+    public function Save()
     {
-        /** @var Video $video */
-        foreach ($this->items as $video){
-            $video->Save();
+        if (!self::$repository) {
+            self::$repository = new ChannelRepository();
         }
 
-        return true;
+        self::$repository->save($this->toArray());
+
+        /** @var Video $video */
+        foreach ($this->items as $video) {
+            //try {
+            $video->Save();
+            /*} catch (\Exception $exception) {
+                echo $exception->getMessage();
+            }*/
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getSkipProperty(): array
+    {
+        return ['items'];
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+        ];
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 }
