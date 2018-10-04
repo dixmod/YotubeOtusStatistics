@@ -45,15 +45,6 @@ class Channel extends ModelSerialize
         }
 
         self::$repository->save($this->toArray());
-
-        /** @var Video $video */
-        foreach ($this->items as $video) {
-            //try {
-            $video->Save();
-            /*} catch (\Exception $exception) {
-                echo $exception->getMessage();
-            }*/
-        }
     }
 
     /**
@@ -77,5 +68,13 @@ class Channel extends ModelSerialize
     public function __toString()
     {
         return $this->id;
+    }
+
+    /**
+     * @return VideoDTO[]
+     */
+    public function getItems(): array
+    {
+        return $this->items;
     }
 }

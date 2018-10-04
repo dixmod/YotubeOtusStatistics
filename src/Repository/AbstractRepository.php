@@ -3,28 +3,29 @@
 namespace Dixmod\Repository;
 
 use Dixmod\Services\Config;
-use MongoDB\Driver\{BulkWrite, Manager};
+use MongoCollection;
+use MongoDB;
+use MongoDB\Client;
+use MongoDB\Driver\{BulkWrite, Cursor, Exception\Exception, Manager};
+use stdClass;
 
 abstract class AbstractRepository
 {
     /** @var MongoDB */
     protected $db;
 
-    /** @var \MongoDB\Client */
+    /** @var Client */
     protected $client;
 
     protected $collection;
-    private $bulk;
 
+    /**
+     * AbstractRepository constructor.
+     */
     public function __construct()
     {
         $this->client = new Manager();
         $this->db = Config::getOptions('db')['db'];
-
-//        $this->client->selectCollection(
-//            ,
-//            $this->getCollection()
-//        );
     }
 
     /**
@@ -41,7 +42,7 @@ abstract class AbstractRepository
      */
     public function findAll(array $filters = []): array
     {
-
+        //TODO: Реализовать
     }
 
     /**
@@ -50,15 +51,28 @@ abstract class AbstractRepository
      */
     public function getById(int $id): array
     {
+        //TODO: Реализовать
+    }
 
+    /**
+     * @param array $pipeline
+     * @return Cursor
+     * @throws Exception
+     */
+    public function Aggregate(array $pipeline)
+    {
+        $command = new MongoDB\Driver\Command([
+            'aggregate' => $this->collection,
+            'pipeline' => $pipeline,
+            'cursor' => new stdClass,
+        ]);
+
+        return $this->client->executeCommand($this->db, $command);
     }
 
     /**
      * @param array $data
      * @return bool|mixed
-     * @throws \MongoCursorException
-     * @throws \MongoCursorTimeoutException
-     * @throws \MongoException
      */
     public function Save($data)
     {
@@ -74,11 +88,10 @@ abstract class AbstractRepository
                 'upsert' => true
             ]
         );
+
         return $this->client->executeBulkWrite(
             $this->db . '.' . $this->collection,
             $bulk
         );
     }
-
-
 }
