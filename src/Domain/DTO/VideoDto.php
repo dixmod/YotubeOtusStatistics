@@ -1,15 +1,13 @@
 <?php
 
-namespace Dixmod\DTO;
+namespace App\Domain\DTO;
 
-use Dixmod\Services\Channel;
-
-class VideoDTO
+class VideoDto
 {
     /** @var string */
     public $id;
 
-    /** @var Channel */
+    /** @var string */
     public $channel;
 
     /** @var string */

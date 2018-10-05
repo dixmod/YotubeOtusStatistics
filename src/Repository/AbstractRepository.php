@@ -1,12 +1,12 @@
 <?php
 
-namespace Dixmod\Repository;
+namespace App\Repository;
 
-use Dixmod\Services\Config;
+use App\Service\Config;
 use MongoCollection;
 use MongoDB;
 use MongoDB\Client;
-use MongoDB\Driver\{BulkWrite, Cursor, Exception\Exception, Manager};
+use MongoDB\Driver\{BulkWrite, Cursor, Exception\Exception, Manager, Query};
 use stdClass;
 
 abstract class AbstractRepository
@@ -42,16 +42,32 @@ abstract class AbstractRepository
      */
     public function findAll(array $filters = []): array
     {
-        //TODO: Ğåàëèçîâàòü
+        //TODO: Ğ ĞµĞ°Ğ»Ğ¸Ğ·Ğ¾Ğ²Ğ°Ñ‚ÑŒ
     }
 
     /**
      * @param int $id
      * @return array
+     * @throws Exception
      */
-    public function getById(int $id): array
+    public function getById($id)
     {
-        //TODO: Ğåàëèçîâàòü
+        $query = new Query(
+            [
+                'id' => [
+                    '$eq' => $id
+                ]
+            ]
+        );
+
+        $result = $this->client->executeQuery(
+            $this->db . '.' . $this->collection,
+            $query
+        )->toArray();
+
+        $result = array_shift($result);
+
+        return (array)$result;
     }
 
     /**

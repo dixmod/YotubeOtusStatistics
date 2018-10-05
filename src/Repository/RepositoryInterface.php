@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixmod\Repository;
+namespace App\Repository;
 
 interface RepositoryInterface
 {

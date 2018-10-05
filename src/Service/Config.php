@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixmod\Services;
+namespace App\Service;
 
 class Config
 {
@@ -67,8 +67,6 @@ class Config
     private function getContentFileConfig()
     {
         $pathToFileConfig = $this->getPathToConfig();
-        return is_file($pathToFileConfig)
-            ? include_once $pathToFileConfig
-            : [];
+        return is_file($pathToFileConfig) ? include $pathToFileConfig : [];
     }
 }

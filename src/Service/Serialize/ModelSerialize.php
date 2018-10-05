@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixmod\Services\Serialize;
+namespace App\Service\Serialize;
 
 abstract class ModelSerialize implements \JsonSerializable
 {

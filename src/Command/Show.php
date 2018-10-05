@@ -1,8 +1,9 @@
 <?php
 
-namespace Dixmod\Command;
+namespace App\Command;
 
-use Dixmod\Repository\VideoRepository;
+use App\Repository\VideoRepository;
+use MongoDB\Driver\Exception\Exception;
 use Symfony\Component\Console\{Command\Command, Input\InputInterface, Output\OutputInterface};
 
 class Show extends Command
@@ -24,7 +25,7 @@ class Show extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null|void
-     * @throws \MongoDB\Driver\Exception\Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -44,12 +45,39 @@ class Show extends Command
                     ],
                     'totalDislikes' => [
                         '$sum' => '$dislikes'
-                    ]
+                    ],
                 ],
             ],
             [
+                '$project' => [
+                    '_id' => 1,
+                    'totalViews' => 1,
+                    'totalLikes' => 1,
+                    'totalDislikes' => 1,
+                    'rating' => [
+                        '$divide' => [
+                            '$totalLikes',
+                            '$totalDislikes'
+                        ]
+                    ],
+                    'channel.title' => 1
+                ],
+            ],
+            [
+                '$lookup' =>
+                    [
+                        'from' => 'channels',
+                        'localField' => '_id',
+                        'foreignField' => 'id',
+                        'as' => 'channel'
+                    ]
+            ],
+            [
+                '$unwind' => '$channel'
+            ],
+            [
                 '$sort' => [
-                    'totalViews' => -1,
+                    'rating' => -1,
                 ],
             ],
             [
@@ -57,20 +85,29 @@ class Show extends Command
             ]
         ]);
 
-        printf("%30s %15s %15s %15s\n",
-            'ID Chennal',
+        printf("%8s   %8s   %8s   %8s   %s\n",
             'Views',
             'Likes',
-            'Dislikes'
+            'Dislikes',
+            'Rating',
+            'Channel title'
         );
 
-        foreach ($arResult as $chennal) {
-            printf("%30s | %15d | %15d | %15d\n",
-                $chennal->_id,
-                $chennal->totalViews,
-                $chennal->totalLikes,
-                $chennal->totalDislikes
+        foreach ($arResult as $statChannel) {
+            /*print_r($statChannel);
+continue;*/
+            /*if (!$statChannel->_id) {
+                continue;
+            }*/
+
+            printf("%8d | %8d | %8d | %8.02f | %0s  \n",
+                $statChannel->totalViews,
+                $statChannel->totalLikes,
+                $statChannel->totalDislikes,
+                $statChannel->rating,
+                $statChannel->channel->title
             );
+
         }
     }
 }

@@ -2,8 +2,9 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/src/bootstrap.php';
 
-use Dixmod\Command\{Import, Show};
+use App\Command\{Import, Show};
 use Symfony\Component\Console\Application;
 
 $app = new Application('YoutubeOtusStatistics', 1.0);

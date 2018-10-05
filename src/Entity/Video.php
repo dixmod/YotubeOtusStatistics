@@ -1,13 +1,10 @@
 <?php
 
-namespace Dixmod\Services;
+namespace App\Entity;
 
-use Dixmod\DTO\VideoDTO;
-use Dixmod\Repository\{RepositoryInterface, VideoRepository};
-use Dixmod\Services\Serialize\ModelSerialize;
-use MongoCursorException;
-use MongoCursorTimeoutException;
-use MongoException;
+use App\Domain\DTO\VideoDto;
+use App\Repository\{RepositoryInterface, VideoRepository};
+use App\Service\Serialize\ModelSerialize;
 
 class Video extends ModelSerialize
 {
@@ -34,9 +31,9 @@ class Video extends ModelSerialize
 
     /**
      * Video constructor.
-     * @param VideoDTO $DTO
+     * @param VideoDto $DTO
      */
-    public function __construct(VideoDTO $DTO)
+    public function __construct(VideoDto $DTO)
     {
         $this->id = $DTO->id;
         $this->channel = $DTO->channel;
@@ -48,17 +45,14 @@ class Video extends ModelSerialize
 
     /**
      * @return array|bool
-     * @throws MongoCursorException
-     * @throws MongoCursorTimeoutException
-     * @throws MongoException
      */
-    public function Save()
+    public function save()
     {
         if (!self::$repository) {
             self::$repository = new VideoRepository();
         }
 
-        return self::$repository->save($this->toArray());
+        self::$repository->save($this->toArray());
     }
 
     /**
@@ -76,7 +70,7 @@ class Video extends ModelSerialize
     {
         return [
             'id' => $this->id,
-            'channel' => $this->channel instanceof Channel ? $this->channel->getId() : null,
+            'channel' => $this->channel,
             'title' => $this->title,
             'views' => $this->views,
             'likes' => $this->likes,
