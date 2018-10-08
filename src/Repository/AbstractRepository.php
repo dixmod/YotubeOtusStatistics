@@ -6,7 +6,11 @@ use App\Service\Config;
 use MongoCollection;
 use MongoDB;
 use MongoDB\Client;
-use MongoDB\Driver\{BulkWrite, Cursor, Exception\Exception, Manager, Query};
+use MongoDB\Driver\BulkWrite;
+use MongoDB\Driver\Cursor;
+use MongoDB\Driver\Exception\Exception;
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Query;
 use stdClass;
 
 abstract class AbstractRepository

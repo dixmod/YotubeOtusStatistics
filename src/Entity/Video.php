@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use App\Domain\DTO\VideoDto;
-use App\Repository\{RepositoryInterface, VideoRepository};
+use App\Repository\RepositoryInterface;
+use App\Repository\VideoRepository;
 use App\Service\Serialize\ModelSerialize;
 
 class Video extends ModelSerialize

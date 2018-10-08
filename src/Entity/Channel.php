@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use App\Domain\DTO\{ChannelDto, VideoDto};
+use App\Domain\DTO\ChannelDto;
+use App\Domain\DTO\VideoDto;
 use App\Repository\ChannelRepository;
 use App\Repository\RepositoryInterface;
 use App\Service\Collection\ChannelVideoCollection;

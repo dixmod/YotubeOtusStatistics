@@ -2,7 +2,8 @@
 
 namespace App\Repository;
 
-use App\{Client\Client, Service\Config};
+use App\Client\Client;
+use App\Service\Config;
 
 class Youtube implements RemoteSourceInterface
 {

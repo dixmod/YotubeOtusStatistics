@@ -4,7 +4,9 @@ namespace App\Command;
 
 use App\Repository\VideoRepository;
 use MongoDB\Driver\Exception\Exception;
-use Symfony\Component\Console\{Command\Command, Input\InputInterface, Output\OutputInterface};
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Show extends Command
 {
