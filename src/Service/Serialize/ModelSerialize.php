@@ -8,6 +8,9 @@ abstract class ModelSerialize implements \JsonSerializable
         PropertyIterator::jsonSerialize as toArrayWithoutFields;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         $arrayOfProperties = $this->toArrayWithoutFields($this->getSkipProperty());
@@ -19,11 +22,17 @@ abstract class ModelSerialize implements \JsonSerializable
         return $arrayOfProperties;
     }
 
+    /**
+     * @return array
+     */
     public function getSkipProperty(): array
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [];

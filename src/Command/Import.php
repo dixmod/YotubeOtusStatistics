@@ -30,6 +30,7 @@ class Import extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
+        /** @var \DI\Container */
         global $container;
 
         $output->writeln('<info>START</info>');

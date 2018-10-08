@@ -4,6 +4,11 @@ namespace App\Service\Serialize;
 
 trait PropertyIterator
 {
+    /**
+     * @param array $excepts
+     * @return array
+     * @throws \ReflectionException
+     */
     public function jsonSerialize(array $excepts): array
     {
         $skipProperty = function (\ReflectionProperty $property) use ($excepts) {

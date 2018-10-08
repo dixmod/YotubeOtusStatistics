@@ -8,8 +8,13 @@ use Psr\Http\Message\ResponseInterface as HttpResponseInterface;
 
 class Response implements ResponseInterface
 {
+    /** @var HttpResponseInterface  */
     private $response;
 
+    /**
+     * Response constructor.
+     * @param HttpResponseInterface $response
+     */
     public function __construct(HttpResponseInterface $response)
     {
         $this->response = $response;

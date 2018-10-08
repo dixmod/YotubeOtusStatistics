@@ -19,6 +19,11 @@ class Client implements ClientInterface
 
     private $logger;
 
+    /**
+     * Client constructor.
+     * @param array $config
+     * @param LoggerInterface|null $logger
+     */
     public function __construct(array $config, LoggerInterface $logger = null)
     {
         $this->client = new HttpClient($config);
@@ -49,7 +54,7 @@ class Client implements ClientInterface
      * @return ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function post(string $uri, array $data =[], array $options = []): ResponseInterface
+    public function post(string $uri, array $data = [], array $options = []): ResponseInterface
     {
         $options['json'] = $data;
         return $this->request(self::METHOD_POST, $uri, $options);
@@ -73,7 +78,7 @@ class Client implements ClientInterface
      * @return ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function put(string $uri, array $data =[], array $options = []): ResponseInterface
+    public function put(string $uri, array $data = [], array $options = []): ResponseInterface
     {
         $options['json'] = $data;
         return $this->request(self::METHOD_PUT, $uri, $options);

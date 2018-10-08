@@ -31,7 +31,9 @@ class VideoStatistics
      */
     public function __construct(string $id)
     {
+        /** @var \DI\Container */
         global $container;
+
         $api = $container->get(Youtube::class);
 
         $statistics = $api->getVideoStatistics($id);

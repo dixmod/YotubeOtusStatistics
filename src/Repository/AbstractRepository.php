@@ -47,7 +47,7 @@ abstract class AbstractRepository
      */
     public function findAll(array $filters = []): array
     {
-        //TODO: Реализовать
+        // TODO: Реализовать
     }
 
     /**

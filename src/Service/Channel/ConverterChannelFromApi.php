@@ -40,6 +40,7 @@ class ConverterChannelFromApi
      * @return VideoDto
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function createItem(array $video): VideoDto
     {
