@@ -88,7 +88,7 @@ class Client implements ClientInterface
      */
     private function request(string $method, string $uri, array $options = []): ResponseInterface
     {
-        /*try {*/
+        try {
             $request = $this->client->request($method, $uri, $options);
             $response = new Response($request);
 
@@ -101,7 +101,7 @@ class Client implements ClientInterface
             );
 
             return $response;
-        /*} catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $this->logger->error(
                 sprintf('Fail response to api: %s', $uri),
                 [
@@ -110,6 +110,6 @@ class Client implements ClientInterface
                     'exception_trace' => $exception->getTrace()
                 ]
             );
-        }*/
+        }
     }
 }
