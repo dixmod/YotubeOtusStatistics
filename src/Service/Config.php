@@ -5,7 +5,7 @@ namespace App\Service;
 class Config
 {
     /** @var array */
-    private static $_config = [];
+    private static $_config;
 
     /** @var Config */
     private static $_instance;
@@ -36,7 +36,7 @@ class Config
      */
     private function __construct()
     {
-        if (!isset(self::$_config)) {
+        if (empty(self::$_config)) {
             self::$_config = $this->getContentFileConfig();
         }
     }

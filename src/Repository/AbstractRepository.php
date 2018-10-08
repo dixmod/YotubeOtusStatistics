@@ -2,10 +2,10 @@
 
 namespace App\Repository;
 
+use App\Client\Client;
 use App\Service\Config;
 use MongoCollection;
 use MongoDB;
-use MongoDB\Client;
 use MongoDB\Driver\BulkWrite;
 use MongoDB\Driver\Cursor;
 use MongoDB\Driver\Exception\Exception;
