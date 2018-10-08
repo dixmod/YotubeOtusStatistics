@@ -8,6 +8,10 @@ use App\Service\VideoStatistics;
 
 class ConverterChannelFromApi
 {
+    /**
+     * @param array $channel
+     * @return ChannelDto
+     */
     public function createChannel(array $channel): ChannelDto
     {
         $dto = new ChannelDto();
@@ -17,6 +21,10 @@ class ConverterChannelFromApi
         return $dto;
     }
 
+    /**
+     * @param array $items
+     * @return array
+     */
     private function createItems(array $items): array
     {
         return array_map(
@@ -27,6 +35,12 @@ class ConverterChannelFromApi
         );
     }
 
+    /**
+     * @param array $video
+     * @return VideoDto
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
     private function createItem(array $video): VideoDto
     {
         $dto = new VideoDto();

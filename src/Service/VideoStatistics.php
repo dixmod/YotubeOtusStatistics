@@ -27,6 +27,7 @@ class VideoStatistics
      * @param string $id
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function __construct(string $id)
     {

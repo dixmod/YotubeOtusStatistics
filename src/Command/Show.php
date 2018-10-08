@@ -10,13 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Show extends Command
 {
-
     /** @var VideoRepository */
     private static $repositoryVideo;
 
-    /**
-     *
-     */
     protected function configure()
     {
         $this->setName('statistics:show')
@@ -96,12 +92,6 @@ class Show extends Command
         );
 
         foreach ($arResult as $statChannel) {
-            /*print_r($statChannel);
-continue;*/
-            /*if (!$statChannel->_id) {
-                continue;
-            }*/
-
             printf("%8d | %8d | %8d | %8.02f | %0s  \n",
                 $statChannel->totalViews,
                 $statChannel->totalLikes,
@@ -109,7 +99,6 @@ continue;*/
                 $statChannel->rating,
                 $statChannel->channel->title
             );
-
         }
     }
 }

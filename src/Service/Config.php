@@ -4,14 +4,17 @@ namespace App\Service;
 
 class Config
 {
-    private static $_config;
+    /** @var array */
+    private static $_config = [];
+
+    /** @var Config */
     private static $_instance;
 
     /**
      * @param bool $key
      * @return array|mixed
      */
-    public static function getOptions($key=false)
+    public static function getOptions($key = false)
     {
         if (!isset(self::$_instance)) {
             self::$_instance = new self();
@@ -41,7 +44,7 @@ class Config
     /**
      * @return string
      */
-    private function getPathToConfig()
+    private function getPathToConfig(): string
     {
         return
             $this->getProjectRoot()
@@ -52,7 +55,7 @@ class Config
     /**
      * @return string
      */
-    private function getProjectRoot()
+    private function getProjectRoot(): string
     {
         return realpath(
             empty($_SERVER['DOCUMENT_ROOT'])
@@ -64,9 +67,11 @@ class Config
     /**
      * @return array|mixed
      */
-    private function getContentFileConfig()
+    private function getContentFileConfig(): array
     {
         $pathToFileConfig = $this->getPathToConfig();
-        return is_file($pathToFileConfig) ? include $pathToFileConfig : [];
+        return is_file($pathToFileConfig)
+            ? include $pathToFileConfig
+            : [];
     }
 }

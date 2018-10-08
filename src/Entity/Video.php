@@ -45,9 +45,9 @@ class Video extends ModelSerialize
     }
 
     /**
-     * @return array|bool
+     * @return void
      */
-    public function save()
+    public function save(): void
     {
         if (!self::$repository) {
             self::$repository = new VideoRepository();

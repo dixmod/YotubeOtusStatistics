@@ -26,6 +26,7 @@ class Import extends Command
      * @return int|null|void
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {

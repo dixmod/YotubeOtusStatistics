@@ -15,6 +15,9 @@ class Response implements ResponseInterface
         $this->response = $response;
     }
 
+    /**
+     * @return array
+     */
     public function getBody(): array
     {
         $body = (string)$this->response->getBody();
@@ -23,11 +26,17 @@ class Response implements ResponseInterface
         return $arrayBody;
     }
 
+    /**
+     * @return int
+     */
     public function getStatusCode(): int
     {
         return (int)$this->response->getStatusCode();
     }
 
+    /**
+     * @return bool
+     */
     public function isOkStatus(): bool
     {
         return 200 === $this->getStatusCode();

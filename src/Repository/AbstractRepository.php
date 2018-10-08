@@ -21,6 +21,7 @@ abstract class AbstractRepository
     /** @var Client */
     protected $client;
 
+    /** @var MongoCollection */
     protected $collection;
 
     /**

@@ -19,6 +19,7 @@ class Youtube implements RemoteSourceInterface
      * @param string $id
      * @param string $nextPageToken
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getChannel(string $id, string $nextPageToken = ''): array
     {
@@ -40,7 +41,7 @@ class Youtube implements RemoteSourceInterface
         );
 
         if (!$response->isOkStatus()) {
-
+            // TODO: add show error
         }
 
         return $response->getBody();
@@ -49,6 +50,7 @@ class Youtube implements RemoteSourceInterface
     /**
      * @param string $id
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getVideoStatistics(string $id): array
     {
@@ -64,7 +66,7 @@ class Youtube implements RemoteSourceInterface
         );
 
         if (!$response->isOkStatus()) {
-
+            // TODO: add show error
         }
 
         return $response->getBody()['items'][0]['statistics'] ?? [];

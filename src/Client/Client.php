@@ -27,6 +27,13 @@ class Client implements ClientInterface
         $this->logger = $logger;
     }
 
+    /**
+     * @param string $uri
+     * @param array $params
+     * @param array $options
+     * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function get(string $uri, array $params = [], array $options = []): ResponseInterface
     {
         return $this->request(
@@ -36,6 +43,13 @@ class Client implements ClientInterface
         );
     }
 
+    /**
+     * @param string $uri
+     * @param array $data
+     * @param array $options
+     * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function post(string $uri, array $data =[], array $options = []): ResponseInterface
     {
         $options['json'] = $data;
@@ -47,6 +61,13 @@ class Client implements ClientInterface
         return $this->request(self::METHOD_DELETE, $uri, $options);
     }
 
+    /**
+     * @param string $uri
+     * @param array $data
+     * @param array $options
+     * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function put(string $uri, array $data =[], array $options = []): ResponseInterface
     {
         $options['json'] = $data;
@@ -63,7 +84,7 @@ class Client implements ClientInterface
     private function request(string $method, string $uri, array $options = []): ResponseInterface
     {
         $uri = '/youtube/v3/'/*$this->client->patch()*/. $uri;
-        /*try {*/
+        try {
             $httpResponse = $this->client->request($method, $uri, $options);
             $response = new Response($httpResponse);
 
@@ -76,7 +97,7 @@ class Client implements ClientInterface
             );
 
             return $response;
-        /*} catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $this->logger->error(
                 sprintf('Fail response to api: %s', $uri),
                 [
@@ -85,6 +106,6 @@ class Client implements ClientInterface
                     'exception_trace' => $exception->getTrace()
                 ]
             );
-        }*/
+        }
     }
 }
