@@ -3,8 +3,8 @@
 return [
     'youtube' => [
         'api' => [
-            'uri' => 'https://www.googleapis.com/youtube/v3',
-            'access_key' => 'AIzaSyCr1FGNkS1Chm87nk2voH30WlYO43bBC2E'
+            'base_uri' => 'https://www.googleapis.com/youtube/v3/',
+            'access_key' => 'AIzaSyCr1FGNkS1Chm87nk2voH30WlYO43bBC2E',
         ],
         'channels' => [
             'UCq2T45noTHldpZxTZpD0uyg',

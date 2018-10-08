@@ -19,7 +19,7 @@ $container->set(
 $container->set(
     \App\Client\Client::class,
     \DI\create(\App\Client\Client::class)->constructor(
-        $config['youtube']['api']['uri'],
+        $config['youtube']['api'],
         \DI\get(\App\Service\Logger\Logger::class)
     )
 );

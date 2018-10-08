@@ -19,11 +19,10 @@ class Client implements ClientInterface
 
     private $logger;
 
-    public function __construct(string $apiUri, LoggerInterface $logger = null)
+    public function __construct(array $config, LoggerInterface $logger = null)
     {
-        $this->client = new HttpClient([
-            'base_uri' => $apiUri
-        ]);
+        $this->client = new HttpClient($config);
+
         $this->logger = $logger;
     }
 
@@ -56,6 +55,12 @@ class Client implements ClientInterface
         return $this->request(self::METHOD_POST, $uri, $options);
     }
 
+    /**
+     * @param string $uri
+     * @param array $options
+     * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function delete(string $uri, array $options = []): ResponseInterface
     {
         return $this->request(self::METHOD_DELETE, $uri, $options);
@@ -83,10 +88,9 @@ class Client implements ClientInterface
      */
     private function request(string $method, string $uri, array $options = []): ResponseInterface
     {
-        $uri = '/youtube/v3/'/*$this->client->patch()*/. $uri;
-        try {
-            $httpResponse = $this->client->request($method, $uri, $options);
-            $response = new Response($httpResponse);
+        /*try {*/
+            $request = $this->client->request($method, $uri, $options);
+            $response = new Response($request);
 
             $this->logger->info(
                 sprintf('Response to api: %s', $uri),
@@ -97,7 +101,7 @@ class Client implements ClientInterface
             );
 
             return $response;
-        } catch (\Exception $exception) {
+        /*} catch (\Exception $exception) {
             $this->logger->error(
                 sprintf('Fail response to api: %s', $uri),
                 [
@@ -106,6 +110,6 @@ class Client implements ClientInterface
                     'exception_trace' => $exception->getTrace()
                 ]
             );
-        }
+        }*/
     }
 }
